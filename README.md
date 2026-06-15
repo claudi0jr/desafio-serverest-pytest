@@ -116,6 +116,6 @@ O método consiste em mapear todas as operações disponíveis na API (combinaç
 
 **Cobertura total da API: 11/16 = 68,75%**
 
-### O que ficou fora e por quê
+### O que ficou de fora:
 
 O endpoint `/carrinhos` foi excluído do escopo deste teste por decisão prévia documentada no `PLANO-DE-TESTES.md`. O foco foi cobrir completamente os endpoints de Usuários, Login e Produtos, conforme solicitado.
