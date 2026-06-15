@@ -6,8 +6,7 @@ A API testada é a [ServeRest](https://compassuol.serverest.dev/), que simula um
 
 ## O que foi testado
 
-Todos os testes cobrem o endpoint de **Usuários** da ServeRest:
-
+### Usuários
 - Listar usuários
 - Cadastrar usuário válido
 - Cadastrar usuário com email duplicado
@@ -18,6 +17,20 @@ Todos os testes cobrem o endpoint de **Usuários** da ServeRest:
 - Buscar usuário com ID inexistente
 - Atualizar usuário
 - Excluir usuário
+
+### Login
+- Login com credenciais corretas
+- Login com senha errada
+- Login com email inexistente
+- Login com campos vazios
+
+### Produtos
+- Listar produtos
+- Cadastrar produto com token de administrador
+- Cadastrar produto sem token
+- Buscar produto por ID
+- Atualizar produto
+- Excluir produto
 
 ## Tecnologias utilizadas
 
@@ -62,9 +75,47 @@ pytest -v
 ```
 desafio-serverest-pytest/
 ├── tests/
-│   ├── conftest.py       # fixture que cria e deleta usuário para os testes
-│   └── test_usuarios.py  # testes do endpoint de usuários
-├── pytest.ini            # configuração do pytest
-├── requirements.txt      # dependências do projeto
+│   ├── conftest.py         # fixtures de usuário, admin e produto
+│   ├── test_usuarios.py    # testes do endpoint de usuários
+│   ├── test_login.py       # testes do endpoint de login
+│   └── test_produtos.py    # testes do endpoint de produtos
+├── pytest.ini              # configuração do pytest
+├── requirements.txt        # dependências do projeto
+├── PLANO-DE-TESTES.md      # planejamento da suíte de testes
 └── README.md
 ```
+
+## Análise de cobertura
+
+### Método utilizado
+
+A cobertura foi calculada com base no método de **cobertura por operações**, conforme descrito no artigo [Como verificar a cobertura de testes da API REST](https://medium.com/revista-dtar/como-verificar-a-cobertura-de-testes-da-api-rest-9e2f745564b).
+
+O método consiste em mapear todas as operações disponíveis na API (combinação de método HTTP + endpoint) e verificar quantas estão cobertas por pelo menos um teste.
+
+### Cobertura atingida
+
+| Operação | Coberta |
+|----------|---------|
+| POST /login | ✅ |
+| GET /usuarios | ✅ |
+| POST /usuarios | ✅ |
+| GET /usuarios/{_id} | ✅ |
+| PUT /usuarios/{_id} | ✅ |
+| DELETE /usuarios/{_id} | ✅ |
+| GET /produtos | ✅ |
+| POST /produtos | ✅ |
+| GET /produtos/{_id} | ✅ |
+| PUT /produtos/{_id} | ✅ |
+| DELETE /produtos/{_id} | ✅ |
+| GET /carrinhos | ❌ |
+| POST /carrinhos | ❌ |
+| GET /carrinhos/{_id} | ❌ |
+| DELETE /carrinhos/concluir-compra | ❌ |
+| DELETE /carrinhos/cancelar-compra | ❌ |
+
+**Cobertura total da API: 11/16 = 68,75%**
+
+### O que ficou fora e por quê
+
+O endpoint `/carrinhos` foi excluído do escopo deste teste por decisão prévia documentada no `PLANO-DE-TESTES.md`. O foco foi cobrir completamente os endpoints de Usuários, Login e Produtos, conforme solicitado.
